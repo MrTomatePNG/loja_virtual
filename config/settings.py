@@ -28,7 +28,28 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+USE_S3 = os.environ.get("USE_S3", "False") == "True"
 
+if USE_S3:
+    AWS_ACCESS_KEY_ID = os.environ.get("MINIO_ACCESS_KEY")
+    AWS_SECRET_ACCESS_KEY = os.environ.get("MINIO_SECRET_KEY")
+    AWS_STORAGE_BUCKET_NAME = os.environ.get("MINIO_BUCKET_NAME")
+    AWS_S3_ENDPOINT_URL = os.environ.get("MINIO_ENDPOINT")
+    AWS_S3_ADDRESSING_STYLE = "path"
+    AWS_DEFAULT_ACL = "public-read"
+    AWS_QUERYSTRING_AUTH = False
+
+    STORAGES = {
+        "default": {
+            "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        },
+    }
+else:
+    MEDIA_URL = "/media/"
+    MEDIA_ROOT = BASE_DIR / "media"
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,6 +59,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "storages",
+    "produtos",
 ]
 
 MIDDLEWARE = [
@@ -79,7 +102,7 @@ DATABASES = {
         "NAME": os.environ.get("POSTGRES_NAME", "postgres"),
         "USER": os.environ.get("POSTGRES_USER", "postgres"),
         "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "postgres"),
-        "HOST": os.environ.get("POSTGRES_HOST", "db"),
+        "HOST": os.environ.get("POSTGRES_HOST", "localhost"),
         "PORT": os.environ.get("POSTGRES_PORT", "5432"),
     }
 }
