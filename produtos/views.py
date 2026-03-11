@@ -10,5 +10,5 @@ def listar_produtos(request):
 
 
 def detalhes(request, slug):
-    produto = Produto.objects.get(slug=slug)
+    produto: Produto = Produto.objects.get(slug=slug)
     return render(request, "produtos/detalhes.html", {"produto": produto})
