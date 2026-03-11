@@ -34,7 +34,7 @@ dependencies = [
     { name = "psycopg2-binary" },
 ]
 
-[package.optional-dependencies]
+[package.dev-dependencies]
 dev = [
     { name = "ruff" },
     { name = "ty" },
@@ -44,10 +44,13 @@ dev = [
 requires-dist = [
     { name = "django", specifier = ">=6.0.3" },
     { name = "psycopg2-binary", specifier = ">=2.9.11" },
-    { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.15.5" },
-    { name = "ty", marker = "extra == 'dev'", specifier = ">=0.0.21" },
 ]
-provides-extras = ["dev"]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "ruff", specifier = ">=0.15.5" },
+    { name = "ty", specifier = ">=0.0.21" },
+]
 
 [[package]]
 name = "psycopg2-binary"
