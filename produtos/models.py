@@ -21,7 +21,7 @@ class Categoria(models.Model):
 # Nota: um produto pode ter várias categorias
 class Produto(models.Model):
     nome = models.CharField(max_length=200)
-    decricao = models.TextField(blank=True)
+    descricao = models.TextField(blank=True)
     preco = models.DecimalField(max_digits=10, decimal_places=2)
     estoque = models.IntegerField(default=0)
     criado_em = models.DateTimeField(auto_now_add=True)
