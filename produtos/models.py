@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import Index, PositiveIntegerField
+from django.db.models import Index
 
 
 # Create your models here.
