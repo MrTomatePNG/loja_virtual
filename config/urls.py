@@ -18,4 +18,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
-urlpatterns = [path("admin/", admin.site.urls), path("", include("produtos.urls"))]
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("produtos/", include("produtos.urls")),
+    path("", include("produtos.urls")), # Mantém a home como lista de produtos se quiser
+]
