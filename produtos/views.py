@@ -7,3 +7,8 @@ from produtos.models import Produto
 def listar_produtos(request):
     produtos = Produto.objects.all()
     return render(request, "produtos/lista.html", {"produtos": produtos})
+
+
+def detalhes(request, slug):
+    produto = Produto.objects.get(slug=slug)
+    return render(request, "produtos/detalhes.html", {"produto": produto})
