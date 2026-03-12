@@ -1,16 +1,17 @@
 from django.contrib import admin
+from unfold.admin import ModelAdmin
 
 from .models import Categoria, Produto
 
 
 @admin.register(Categoria)
-class CategoriaAdmin(admin.ModelAdmin):
+class CategoriaAdmin(ModelAdmin):
     list_display = ["nome", "slug"]
     prepopulated_fields = {"slug": ("nome",)}
 
 
 @admin.register(Produto)
-class ProdutoAdmin(admin.ModelAdmin):
+class ProdutoAdmin(ModelAdmin):
     list_display = [
         "nome",
         "slug",
