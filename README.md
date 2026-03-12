@@ -21,11 +21,11 @@ Este é um projeto de CRUD simples de uma lojinha virtual, desenvolvido para a d
 Este documento define a divisão de trabalho e as regras de execução do projeto, priorizando a entrega funcional e a estabilidade do código.
 
 ### 1. Distribuição de Tarefas
-*   **[Seu Nome]:** Arquitetura, Banco de Dados, lógica de Backend e Servidor (Docker/CI).
+*   **Gabriel S. | 202403903172 :** Arquitetura, Banco de Dados, lógica de Backend e Servidor (Docker/CI).
 *   **[Nome]:** Desenvolvimento das telas (HTML) e estilização visual (CSS).
 *   **[Nome]:** Escrita de testes automatizados para novas funcionalidades.
 *   **[Nome]:** Preparação de dados de produtos e organização de planilhas para importação.
-*   **[Nome]:** Redação de manuais e documentação das regras de negócio.
+*   **[Nome]:** Redação de relatorios e documentação do progresso do projeto.
 
 ### 2. Objetivos por Etapas
 *   **Fase 1 (Atual):** Finalizar cadastro, login e perfil do cliente com endereço.
