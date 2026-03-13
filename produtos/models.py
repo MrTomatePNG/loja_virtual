@@ -19,7 +19,7 @@ class Categoria(models.Model):
             Index(fields=["nome"]),
         ]
 
-    objects: type[models.Manager["Categoria"]]
+    objects = models.Manager()
 
 
 # Nota: um produto pode ter várias categorias
