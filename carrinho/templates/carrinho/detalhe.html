@@ -35,7 +35,7 @@
 
   <h3>Total: R$ {{ carrinho.get_total_preco }}</h3>
   <a href="{% url 'produtos:lista-produtos' %}">Continuar comprando</a>
-  <a href="#">Finalizar Pedido (Próxima Fase)</a>
+  <a href="{% url 'pedidos:checkout' %}" style="font-weight: bold; color: green;">Finalizar Pedido e Comprar</a>
 
 {% else %}
   <p>Seu carrinho está vazio.</p>

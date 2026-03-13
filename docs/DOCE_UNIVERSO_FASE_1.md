@@ -53,7 +53,7 @@ O sistema baseia-se em um modelo relacional com as seguintes entidades principai
 ---
 
 ## 3. DIVISÃO DE TAREFAS (Grupo)
-*   **[Seu Nome]:** Liderança técnica, Arquitetura de Software, Modelagem de Dados e Integração Backend.
+*   **Gabriel S. | 202403903172:** Liderança técnica, Arquitetura de Software, Modelagem de Dados e Integração Backend.
 *   **[Membro 2]:** Desenvolvimento de Interface (Design do Usuário) e Front-end (Templates Django).
 *   **[Membro 3]:** Qualidade de Software, Escrita de Testes Unitários e Validação de Requisitos.
 *   **[Membro 4]:** Desenvolvimento do Sistema de Geração de Planilhas e Relatórios.

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Meus Pedidos - Doce Universo</title>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'produtos:lista-produtos' %}">Vitrine</a> |
+        <a href="{% url 'usuarios:perfil' %}">Meu Perfil</a>
+    </nav>
+    <hr>
+
+    <h2>Meu Histórico de Compras</h2>
+
+    {% if pedidos %}
+        <table border="1" cellpadding="10" style="border-collapse: collapse; width: 100%;">
+            <thead>
+                <tr style="background-color: #eee;">
+                    <th>Nº Pedido</th>
+                    <th>Data</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Pago?</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pedido in pedidos %}
+                    <tr>
+                        <td>#{{ pedido.id }}</td>
+                        <td>{{ pedido.criado_em|date:"d/m/Y H:i" }}</td>
+                        <td>R$ {{ pedido.get_total_cost }}</td>
+                        <td>{{ pedido.get_status_display }}</td>
+                        <td>{% if pedido.pago %}✅ Sim{% else %}❌ Não{% endif %}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Você ainda não realizou nenhum pedido. <a href="{% url 'produtos:lista-produtos' %}">Que tal um doce agora?</a></p>
+    {% endif %}
+</body>
+</html>

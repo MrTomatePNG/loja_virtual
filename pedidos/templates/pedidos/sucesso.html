@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Sucesso! - Doce Universo</title>
+</head>
+<body>
+    <div style="text-align: center; margin-top: 50px;">
+        <h1 style="color: green;">🎉 Pedido Realizado com Sucesso!</h1>
+        <h2>Obrigado, {{ user.first_name }}!</h2>
+        <p>Seu pedido de número <strong>#{{ pedido.id }}</strong> foi recebido e estamos preparando seus doces.</p>
+        
+        <hr>
+        <a href="{% url 'produtos:lista-produtos' %}">Voltar para a Vitrine</a> |
+        <a href="{% url 'pedidos:lista_pedidos' %}">Ver meus pedidos</a>
+    </div>
+</body>
+</html>
