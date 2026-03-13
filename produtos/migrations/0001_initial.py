@@ -5,47 +5,79 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Categoria',
+            name="Categoria",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nome', models.CharField(max_length=200)),
-                ('slug', models.SlugField(unique=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("nome", models.CharField(max_length=200)),
+                ("slug", models.SlugField(unique=True)),
             ],
             options={
-                'verbose_name': 'categoria',
-                'verbose_name_plural': 'categorias',
-                'ordering': ['nome'],
-                'indexes': [models.Index(fields=['nome'], name='produtos_ca_nome_d5f0b6_idx')],
+                "verbose_name": "categoria",
+                "verbose_name_plural": "categorias",
+                "ordering": ["nome"],
+                "indexes": [
+                    models.Index(fields=["nome"], name="produtos_ca_nome_d5f0b6_idx")
+                ],
             },
         ),
         migrations.CreateModel(
-            name='Produto',
+            name="Produto",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nome', models.CharField(max_length=200)),
-                ('descricao', models.TextField(blank=True)),
-                ('preco', models.DecimalField(decimal_places=2, max_digits=10)),
-                ('estoque', models.PositiveIntegerField(default=0)),
-                ('disponivel', models.BooleanField(default=True)),
-                ('slug', models.SlugField(max_length=200, unique=True)),
-                ('imagem', models.ImageField(blank=True, upload_to='produtos/%Y/%m/%d')),
-                ('criado_em', models.DateTimeField(auto_now_add=True)),
-                ('atualizado_em', models.DateTimeField(auto_now=True)),
-                ('categoria', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='produtos', to='produtos.categoria')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("nome", models.CharField(max_length=200)),
+                ("descricao", models.TextField(blank=True)),
+                ("preco", models.DecimalField(decimal_places=2, max_digits=10)),
+                ("estoque", models.PositiveIntegerField(default=0)),
+                ("disponivel", models.BooleanField(default=True)),
+                ("slug", models.SlugField(max_length=200, unique=True)),
+                (
+                    "imagem",
+                    models.ImageField(blank=True, upload_to="produtos/%Y/%m/%d"),
+                ),
+                ("criado_em", models.DateTimeField(auto_now_add=True)),
+                ("atualizado_em", models.DateTimeField(auto_now=True)),
+                (
+                    "categoria",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="produtos",
+                        to="produtos.categoria",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'produto',
-                'verbose_name_plural': 'produtos',
-                'ordering': ['nome'],
-                'indexes': [models.Index(fields=['nome'], name='produtos_pr_nome_664e48_idx'), models.Index(fields=['categoria', 'disponivel'], name='produtos_pr_categor_829aca_idx')],
+                "verbose_name": "produto",
+                "verbose_name_plural": "produtos",
+                "ordering": ["nome"],
+                "indexes": [
+                    models.Index(fields=["nome"], name="produtos_pr_nome_664e48_idx"),
+                    models.Index(
+                        fields=["categoria", "disponivel"],
+                        name="produtos_pr_categor_829aca_idx",
+                    ),
+                ],
             },
         ),
     ]

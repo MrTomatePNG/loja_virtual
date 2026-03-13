@@ -6,7 +6,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -15,18 +14,55 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Cliente',
+            name="Cliente",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('cpf', models.CharField(blank=True, max_length=11, null=True, unique=True, verbose_name='CPF')),
-                ('telefone', models.CharField(blank=True, max_length=20, verbose_name='Telefone')),
-                ('endereco', models.TextField(blank=True, verbose_name='Endereço de entrega')),
-                ('data_nascimento', models.DateField(blank=True, null=True, verbose_name='Data de nascimento')),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='cliente', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "cpf",
+                    models.CharField(
+                        blank=True,
+                        max_length=11,
+                        null=True,
+                        unique=True,
+                        verbose_name="CPF",
+                    ),
+                ),
+                (
+                    "telefone",
+                    models.CharField(
+                        blank=True, max_length=20, verbose_name="Telefone"
+                    ),
+                ),
+                (
+                    "endereco",
+                    models.TextField(blank=True, verbose_name="Endereço de entrega"),
+                ),
+                (
+                    "data_nascimento",
+                    models.DateField(
+                        blank=True, null=True, verbose_name="Data de nascimento"
+                    ),
+                ),
+                (
+                    "user",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="cliente",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Cliente',
-                'verbose_name_plural': 'Clientes',
+                "verbose_name": "Cliente",
+                "verbose_name_plural": "Clientes",
             },
         ),
     ]
