@@ -5,12 +5,12 @@ from produtos.models import Produto
 
 # Create your views here.
 def listar_produtos(request):
-    # Mostra apenas produtos disponíveis na vitrine
-    produtos = Produto.objects.filter(disponivel=True)
+    # Mostra apenas produtos que possuem pelo menos uma variação disponível
+    produtos = Produto.objects.filter(variacoes__disponivel=True).distinct()
     return render(request, "produtos/lista.html", {"produtos": produtos})
 
 
 def detalhes(request, slug):
-    # Usa get_object_or_404 para evitar o erro DoesNotExist
-    produto = get_object_or_404(Produto, slug=slug, disponivel=True)
+    # Busca o produto pelo slug e garante que ele tenha variações disponíveis
+    produto = get_object_or_404(Produto, slug=slug, variacoes__disponivel=True)
     return render(request, "produtos/detalhes.html", {"produto": produto})

@@ -1,0 +1,43 @@
+<h2>Seu Carrinho de Doces</h2>
+
+{% if carrinho %}
+  <table>
+    <thead>
+      <tr>
+        <th>Doce</th>
+        <th>Sabor/Tamanho</th>
+        <th>Quantidade</th>
+        <th>Preço Unit.</th>
+        <th>Subtotal</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in carrinho %}
+        {% with variacao=item.produto_variacao %}
+          <tr>
+            <td>{{ variacao.produto.nome }}</td>
+            <td>{{ variacao.nome }}</td>
+            <td>{{ item.quantidade }}</td>
+            <td>R$ {{ item.preco }}</td>
+            <td>R$ {{ item.total_preco }}</td>
+            <td>
+              <form action="{% url 'carrinho:remover_do_carrinho' variacao.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Remover</button>
+              </form>
+            </td>
+          </tr>
+        {% endwith %}
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h3>Total: R$ {{ carrinho.get_total_preco }}</h3>
+  <a href="{% url 'produtos:lista-produtos' %}">Continuar comprando</a>
+  <a href="#">Finalizar Pedido (Próxima Fase)</a>
+
+{% else %}
+  <p>Seu carrinho está vazio.</p>
+  <a href="{% url 'produtos:lista-produtos' %}">Ir para a vitrine de doces</a>
+{% endif %}

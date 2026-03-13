@@ -6,7 +6,9 @@ from .models import Categoria, Produto, ProdutoVariacao
 
 class ProdutoModelTest(TestCase):
     def setUp(self):
-        self.categoria = Categoria.objects.create(nome="Doces Gourmet", slug="doces-gourmet")
+        self.categoria = Categoria.objects.create(
+            nome="Doces Gourmet", slug="doces-gourmet"
+        )
         self.produto = Produto.objects.create(
             nome="Brigadeiro Gourmet",
             slug="brigadeiro-gourmet",
@@ -67,6 +69,8 @@ class ProdutoViewsTest(TestCase):
 
     def test_detalhes_produto_404(self):
         """Testa se acessar um slug inexistente retorna 404 limpo."""
-        url = reverse("produtos:detalhes-produto", kwargs={"slug": "produto-que-nao-existe"})
+        url = reverse(
+            "produtos:detalhes-produto", kwargs={"slug": "produto-que-nao-existe"}
+        )
         response = self.client.get(url)
         self.assertEqual(response.status_code, 404)
