@@ -65,7 +65,7 @@ A divisão de responsabilidades foi estabelecida conforme as competências indiv
 *   **[Membro 2]:** Desenvolvimento de Interface (Fase de Design) e Implementação de Front-end (Templates Django).
 *   **[Membro 3]:** Qualidade de Software, Garantia de Requisitos e Escrita de Testes Automatizados.
 *   **[Membro 4]:** Desenvolvimento do Sistema de Geração e Exportação de Planilhas/Relatórios.
-*   **[Membro 5]:** Redação do Relatório Final do Grupo e Elaboração dos Slides para Apresentação.
+*   **YURI DOS SANTOS | 202408176783::** Redação do Relatório Final do Grupo e Elaboração dos Slides para Apresentação.
 
 ---
 **OBS:** Este documento segue as normas da ABNT para trabalhos acadêmicos (Arial 12, Espaçamento 1.5, Texto Justificado na versão final em DOCX/PDF).
