@@ -149,4 +149,6 @@ STATIC_URL = "static/"
 
 LOGIN_URL = "usuarios:login"
 LOGIN_REDIRECT_URL = "usuarios:perfil"
-LOGOUT_REDIRECT_URL = "produtos:listar_produtos"
+LOGOUT_REDIRECT_URL = "produtos:lista-produtos"
+
+CART_SESSION_ID = "carrinho_doce_universo"
