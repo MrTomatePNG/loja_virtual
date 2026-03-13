@@ -14,4 +14,3 @@ def detalhes(request, slug):
     # Usa get_object_or_404 para evitar o erro DoesNotExist
     produto = get_object_or_404(Produto, slug=slug, disponivel=True)
     return render(request, "produtos/detalhes.html", {"produto": produto})
-
