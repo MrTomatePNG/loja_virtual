@@ -20,7 +20,7 @@ Este é o projeto **Doce Universo**, um sistema de e-commerce especializado em c
 ## Planejamento de Desenvolvimento
 
 ### 1. Distribuição de Tarefas
-*   **[Seu Nome]:** Arquitetura, Banco de Dados, Backend Core e Infraestrutura (Docker/CI).
+*   **Gabriel S. | 202403903172:** Arquitetura, Banco de Dados, Backend Core e Infraestrutura (Docker/CI).
 *   **[Nome]:** Desenvolvimento do Frontend (HTML/CSS) com foco em uma vitrine de doces atrativa.
 *   **[Nome]:** Escrita de testes automatizados para garantir a estabilidade das compras.
 *   **[Nome]:** Desenvolvimento do sistema de geração e exportação de planilhas (Relatórios de Estoque/Vendas).
