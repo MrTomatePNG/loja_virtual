@@ -1,19 +1,45 @@
-<h2>Meu Perfil - {{ user.get_full_name }}</h2>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Meu Perfil - Doce Universo</title>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'produtos:lista-produtos' %}">Vitrine</a> |
+        <a href="{% url 'carrinho:detalhe_carrinho' %}">Carrinho</a> |
+        <strong>Meu Perfil</strong>
+    </nav>
+    <hr>
 
-{% if messages %}
-  {% for message in messages %}
-    <p style="color: green;">{{ message }}</p>
-  {% endfor %}
-{% endif %}
+    <h2>Olá, {{ user.first_name }}!</h2>
 
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Salvar Alterações</button>
-</form>
+    {% if messages %}
+        <div style="background-color: #d4edda; color: #155724; padding: 10px; margin-bottom: 10px;">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
 
-<hr>
-<form action="{% url 'usuarios:logout' %}" method="post">
-  {% csrf_token %}
-  <button type="submit">Sair da Conta</button>
-</form>
+    <h3>Dados da Minha Conta</h3>
+    <p><strong>Usuário:</strong> {{ user.username }}</p>
+    <p><strong>E-mail:</strong> {{ user.email }}</p>
+
+    <hr>
+    
+    <h3>Atualizar Dados de Entrega</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Salvar Alterações</button>
+    </form>
+
+    <hr>
+    
+    <form action="{% url 'usuarios:logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" style="color: red;">Sair da Conta (Logout)</button>
+    </form>
+</body>
+</html>
