@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "storages",
     "produtos",
+    "usuarios",
 ]
 
 MIDDLEWARE = [
@@ -144,3 +145,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = "static/"
+
+LOGIN_URL = "usuarios:login"
+LOGIN_REDIRECT_URL = "usuarios:perfil"
+LOGOUT_REDIRECT_URL = "produtos:listar_produtos"
