@@ -18,3 +18,19 @@ dev = [
     "ruff>=0.15.5",
     "ty>=0.0.21",
 ]
+
+[tool.ruff]
+# Exclui arquivos gerados ou desnecessários
+exclude = [
+    "*/migrations/*.py",
+    "manage.py",
+    "config/wsgi.py",
+    "config/asgi.py",
+    "__pycache__",
+    ".venv",
+    ".git",
+]
+
+[tool.ruff.lint]
+# Ignora regras específicas em arquivos específicos se necessário
+ignore = ["E402", "F401"] # Exemplo: erros de importação fora do topo em alguns arquivos
