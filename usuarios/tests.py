@@ -8,7 +8,9 @@ from .models import Cliente
 class ClienteModelTest(TestCase):
     def test_cliente_creation_on_user_create(self):
         """Testa se o perfil de Cliente é criado automaticamente via Signal."""
-        user = User.objects.create_user(username="testuser", password="StrongPassword123!")
+        user = User.objects.create_user(
+            username="testuser", password="StrongPassword123!"
+        )
         self.assertTrue(Cliente.objects.filter(user=user).exists())
         self.assertEqual(str(user.cliente), "testuser - Sem CPF")
 
@@ -56,9 +58,11 @@ class UsuariosViewsTest(TestCase):
 
     def test_perfil_update_post(self):
         """Testa a atualização dos dados do perfil."""
-        user = User.objects.create_user(username="member", password="StrongPassword123!")
+        user = User.objects.create_user(
+            username="member", password="StrongPassword123!"
+        )
         self.client.login(username="member", password="StrongPassword123!")
-        
+
         update_data = {
             "cpf": "98765432100",
             "telefone": "11999999999",
@@ -67,6 +71,6 @@ class UsuariosViewsTest(TestCase):
         }
         response = self.client.post(self.perfil_url, update_data)
         user.cliente.refresh_from_db()
-        
+
         self.assertEqual(user.cliente.cpf, "98765432100")
         self.assertRedirects(response, self.perfil_url)
