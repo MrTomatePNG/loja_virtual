@@ -1,79 +1,72 @@
-from django.test import TestCase
+from django.test import TestCase, override_settings
+from django.urls import reverse
 
-from produtos.models import Categoria, Produto
+from .models import Categoria, Produto, ProdutoVariacao
 
 
-class ProdutoTestCase(TestCase):
+class ProdutoModelTest(TestCase):
     def setUp(self):
-        # roda antes de cada teste — evita repetição
-        self.categoria = Categoria.objects.create(nome="Geral", slug="geral")
-
-    def test_create_produto(self):
-        produto = Produto.objects.create(
-            nome="Sabão", preco=5, categoria=self.categoria
+        self.categoria = Categoria.objects.create(nome="Doces Gourmet", slug="doces-gourmet")
+        self.produto = Produto.objects.create(
+            nome="Brigadeiro Gourmet",
+            slug="brigadeiro-gourmet",
+            descricao_geral="O melhor brigadeiro do universo.",
+            categoria=self.categoria,
         )
-        self.assertIsInstance(produto, Produto)
 
-    def test_update_produto(self):
-        produto = Produto.objects.create(
-            nome="Sabão", preco=5, categoria=self.categoria
+    def test_produto_creation(self):
+        """Testa se o produto pai foi criado corretamente."""
+        self.assertEqual(str(self.produto), "Brigadeiro Gourmet")
+        self.assertEqual(self.produto.slug, "brigadeiro-gourmet")
+
+    def test_variacao_creation(self):
+        """Testa se as variações (SKUs) estão vinculadas corretamente ao produto."""
+        variacao = ProdutoVariacao.objects.create(
+            produto=self.produto,
+            nome="Sabor Pistache",
+            sku="BRIG-PIS-01",
+            preco=5.50,
+            estoque=100,
         )
-        produto.nome = "Detergente"
-        produto.save()
-        self.assertEqual(produto.nome, "Detergente")
-
-    def test_update_preco(self):
-        produto = Produto.objects.create(
-            nome="Sabão", preco=5, categoria=self.categoria
-        )
-        produto.preco = 10
-        produto.save()
-        self.assertEqual(produto.preco, 10)
-
-    def test_update_estoque(self):
-        produto = Produto.objects.create(
-            nome="Sabão", preco=5, categoria=self.categoria
-        )
-        produto.estoque = 10
-        produto.save()
-        self.assertEqual(produto.estoque, 10)
-
-    def test_delete_produto(self):
-        produto = Produto.objects.create(
-            nome="Sabão", preco=5, categoria=self.categoria
-        )
-        produto.delete()
-        self.assertEqual(Produto.objects.count(), 0)
+        self.assertEqual(str(variacao), "Brigadeiro Gourmet - Sabor Pistache")
+        self.assertEqual(self.produto.variacoes.count(), 1)
 
 
-class CategoriaTestCase(TestCase):
+@override_settings(ROOT_URLCONF="config.urls")
+class ProdutoViewsTest(TestCase):
     def setUp(self):
-        self.categoria = Categoria.objects.create(nome="Geral", slug="geral")
-
-    def test_create_categoria(self):
-        self.assertIsInstance(self.categoria, Categoria)
-
-    def test_update_categoria(self):
-        self.categoria.nome = "Limpeza"
-        self.categoria.save()
-        self.assertEqual(self.categoria.nome, "Limpeza")
-
-    def test_delete_categoria(self):
-        self.categoria.delete()
-        self.assertEqual(Categoria.objects.count(), 0)
-
-    def test_find_categoria(self):
-        encontrada = Categoria.objects.get(slug="geral")
-        self.assertIsInstance(encontrada, Categoria)
-
-    def test_find_produtos_by_categoria(self):
-        Produto.objects.create(nome="Sabão", preco=5, categoria=self.categoria)
-        produtos = self.categoria.produtos.all()  # usa o related_name
-        self.assertEqual(len(produtos), 1)
-        self.assertIsInstance(produtos[0], Produto)
-
-    def test_find_categoria_by_produto(self):
-        produto = Produto.objects.create(
-            nome="Sabão", preco=5, categoria=self.categoria
+        self.categoria = Categoria.objects.create(nome="Doces", slug="doces")
+        self.produto = Produto.objects.create(
+            nome="Coxinha de Morango",
+            slug="coxinha-morango",
+            categoria=self.categoria,
         )
-        self.assertIsInstance(produto.categoria, Categoria)
+        # Cria uma variação disponível
+        ProdutoVariacao.objects.create(
+            produto=self.produto,
+            nome="Padrão",
+            sku="COX-MOR-01",
+            preco=12.00,
+            estoque=10,
+            disponivel=True,
+        )
+
+    def test_lista_produtos_view(self):
+        """Testa se a vitrine carrega e lista os produtos."""
+        url = reverse("produtos:lista-produtos")
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Coxinha de Morango")
+
+    def test_detalhes_produto_view(self):
+        """Testa se a página de detalhes de um produto carrega via slug."""
+        url = reverse("produtos:detalhes-produto", kwargs={"slug": "coxinha-morango"})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Coxinha de Morango")
+
+    def test_detalhes_produto_404(self):
+        """Testa se acessar um slug inexistente retorna 404 limpo."""
+        url = reverse("produtos:detalhes-produto", kwargs={"slug": "produto-que-nao-existe"})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 404)

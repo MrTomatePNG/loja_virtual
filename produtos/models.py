@@ -2,14 +2,9 @@ from django.db import models
 from django.db.models import Index
 
 
-# Create your models here.
-# Nota: uma categoria pode ter vários produtos
 class Categoria(models.Model):
     nome = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
-
-    def __str__(self):
-        return self.nome
 
     class Meta:
         ordering = ["nome"]
@@ -21,29 +16,47 @@ class Categoria(models.Model):
 
     objects = models.Manager()
 
+    def __str__(self):
+        return self.nome
 
-# Nota: um produto pode ter várias categorias
+
 class Produto(models.Model):
     nome = models.CharField(max_length=200)
-    descricao = models.TextField(blank=True)
-    preco = models.DecimalField(max_digits=10, decimal_places=2)
-    estoque = models.PositiveIntegerField(default=0)
-    disponivel = models.BooleanField(default=True)
     slug = models.SlugField(unique=True, max_length=200)
-    imagem = models.ImageField(upload_to="produtos/%Y/%m/%d", blank=True)
-    criado_em = models.DateTimeField(auto_now_add=True)
-    atualizado_em = models.DateTimeField(auto_now=True)
+    descricao_geral = models.TextField("Descrição Geral", blank=True)
     categoria = models.ForeignKey(
         Categoria, on_delete=models.CASCADE, related_name="produtos"
     )
+    imagem_principal = models.ImageField(upload_to="produtos/%Y/%m/%d", blank=True)
 
     class Meta:
         ordering = ["nome"]
         verbose_name = "produto"
         verbose_name_plural = "produtos"
-        indexes = [Index(fields=["nome"]), Index(fields=["categoria", "disponivel"])]
+        indexes = [Index(fields=["nome"]), Index(fields=["categoria"])]
 
-    objects: type[models.Manager["Produto"]]
+    objects = models.Manager()
 
     def __str__(self):
         return self.nome
+
+
+class ProdutoVariacao(models.Model):
+    produto = models.ForeignKey(
+        Produto, on_delete=models.CASCADE, related_name="variacoes"
+    )
+    nome = models.CharField("Sabor/Tamanho", max_length=200)
+    sku = models.CharField("SKU/Código", max_length=50, unique=True)
+    preco = models.DecimalField("Preço", max_digits=10, decimal_places=2)
+    estoque = models.PositiveIntegerField("Estoque Atual", default=0)
+    disponivel = models.BooleanField("Disponível para venda", default=True)
+    imagem = models.ImageField(upload_to="produtos/variacoes/%Y/%m/%d", blank=True)
+
+    class Meta:
+        verbose_name = "Variação de Produto"
+        verbose_name_plural = "Variações de Produtos"
+
+    objects = models.Manager()
+
+    def __str__(self):
+        return f"{self.produto.nome} - {self.nome}"  # type: ignore
