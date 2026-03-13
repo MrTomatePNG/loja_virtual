@@ -1,14 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<title>{{ produto.nome }} - Doce Universo</title>
 </head>
 <body>
-    <h1>Detalhes</h1>
-    <h2>{{ produto.nome }}</h2>
-    <p>{{ produto.descricao }}</p>
-    <p>{{ produto.preco }}</p>
+    <a href="{% url 'produtos:lista-produtos' %}">← Voltar para a vitrine</a>
+    <hr>
+
+    <h1>{{ produto.nome }}</h1>
+    
+    {% if produto.imagem_principal %}
+        <img src="{{ produto.imagem_principal.url }}" alt="{{ produto.nome }}" style="max-width: 300px;">
+    {% endif %}
+
+    <h3>Descrição</h3>
+    <p>{{ produto.descricao_geral }}</p>
+
+    <hr>
+    <h3>Escolha seu sabor/tamanho:</h3>
+    
+    <ul>
+        {% for variacao in produto.variacoes.all %}
+            {% if variacao.disponivel %}
+                <li>
+                    <strong>{{ variacao.nome }}</strong> - R$ {{ variacao.preco }}
+                    <br>
+                    <small>Estoque: {{ variacao.estoque }} unidades</small>
+                    
+                    <form action="{% url 'carrinho:adicionar_ao_carrinho' variacao.id %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit">Adicionar ao Carrinho</button>
+                    </form>
+                </li>
+                <br>
+            {% endif %}
+        {% empty %}
+            <li>Nenhuma variação disponível no momento.</li>
+        {% endfor %}
+    </ul>
+
+    <hr>
+    <a href="{% url 'carrinho:detalhe_carrinho' %}">Ver meu carrinho</a>
 </body>
 </html>

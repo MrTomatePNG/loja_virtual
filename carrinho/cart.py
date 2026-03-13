@@ -61,7 +61,8 @@ class Carrinho:
     def get_total_preco(self):
         """Calcula o valor total de todos os itens no carrinho."""
         return sum(
-            Decimal(item["preco"]) * item["quantidade"] for item in self.carrinho.values()
+            Decimal(item["preco"]) * item["quantidade"]
+            for item in self.carrinho.values()
         )
 
     def limpar(self):

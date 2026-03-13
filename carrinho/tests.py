@@ -24,29 +24,33 @@ class CarrinhoTest(TestCase):
         """Testa se a view de adicionar insere o doce na sessão."""
         url = reverse("carrinho:adicionar_ao_carrinho", args=[self.variacao.id])
         response = self.client.post(url)
-        
+
         # Deve redirecionar para a página de detalhes do carrinho
         self.assertRedirects(response, reverse("carrinho:detalhe_carrinho"))
-        
+
         # Verifica se o item está na sessão (o ID da variação é a chave)
         session = self.client.session
         from django.conf import settings
+
         self.assertIn(str(self.variacao.id), session[settings.CART_SESSION_ID])
 
     def test_remover_do_carrinho_view(self):
         """Testa se a view de remover retira o doce da sessão."""
         # Primeiro adiciona
-        self.client.post(reverse("carrinho:adicionar_ao_carrinho", args=[self.variacao.id]))
-        
+        self.client.post(
+            reverse("carrinho:adicionar_ao_carrinho", args=[self.variacao.id])
+        )
+
         # Depois remove
         url = reverse("carrinho:remover_do_carrinho", args=[self.variacao.id])
         response = self.client.post(url)
-        
+
         self.assertRedirects(response, reverse("carrinho:detalhe_carrinho"))
-        
+
         # Verifica se a sessão está vazia para aquele ID
         session = self.client.session
         from django.conf import settings
+
         self.assertNotIn(str(self.variacao.id), session[settings.CART_SESSION_ID])
 
     def test_detalhe_carrinho_vazio(self):
@@ -57,9 +61,11 @@ class CarrinhoTest(TestCase):
 
     def test_detalhe_carrinho_com_itens(self):
         """Testa se a página do carrinho mostra os doces adicionados."""
-        self.client.post(reverse("carrinho:adicionar_ao_carrinho", args=[self.variacao.id]))
+        self.client.post(
+            reverse("carrinho:adicionar_ao_carrinho", args=[self.variacao.id])
+        )
         response = self.client.get(reverse("carrinho:detalhe_carrinho"))
-        
+
         self.assertEqual(response.status_code, 200)
         # Verifica se o nome do doce e o subtotal aparecem no HTML
         self.assertContains(response, "Brigadeiro")
