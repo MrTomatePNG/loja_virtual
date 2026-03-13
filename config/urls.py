@@ -5,6 +5,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("usuarios/", include("usuarios.urls")),
     path("carrinho/", include("carrinho.urls")),
+    path("pedidos/", include("pedidos.urls", namespace="pedidos")),
     path("produtos/", include("produtos.urls", namespace="produtos")),
     path("", include("produtos.urls", namespace="home")),
 ]

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmar Pedido - Doce Universo</title>
+</head>
+<body>
+    <h2>Confirmar seu Pedido de Doces</h2>
+    <hr>
+
+    <h3>Itens Selecionados:</h3>
+    <ul>
+        {% for item in carrinho %}
+            <li>{{ item.quantidade }}x {{ item.produto_variacao }} - R$ {{ item.total_preco }}</li>
+        {% endfor %}
+    </ul>
+    <h4>Total Geral: R$ {{ carrinho.get_total_preco }}</h4>
+
+    <hr>
+    <h3>Dados de Entrega:</h3>
+    <p><strong>Endereço:</strong> {{ cliente.endereco }}</p>
+    <p><small>(Para mudar o endereço, vá em seu <a href="{% url 'usuarios:perfil' %}">Perfil</a>)</small></p>
+
+    <hr>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" style="font-size: 1.2em; background-color: #28a745; color: white; padding: 10px;">Finalizar Pedido e Comprar</button>
+    </form>
+    
+    <br>
+    <a href="{% url 'carrinho:detalhe_carrinho' %}">Voltar para o carrinho</a>
+</body>
+</html>
