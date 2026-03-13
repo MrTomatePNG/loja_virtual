@@ -22,10 +22,10 @@ Este é o projeto **Doce Universo**, um sistema de e-commerce especializado em c
 
 ### 1. Distribuição de Tarefas
 *   **Gabriel S. | 202403903172:** Liderança Técnica, Arquitetura, Backend Core e Infraestrutura (Docker/CI).
-*   **CARLOS EDUARDO CRUZ | 202302299474:** Desenvolvimento do Frontend (HTML/CSS) e UX da vitrine de doces.
+*   **[Nome]:** Desenvolvimento do Frontend (HTML/CSS) e UX da vitrine de doces.
 *   **[Nome]:** Escrita de testes unitários e garantia de integridade das funcionalidades.
 *   **[Nome]:** Desenvolvimento do sistema de geração e exportação de relatórios (CSV/Excel).
-*   **YURI DOS SANTOS | 202408176783:** Redação do Relatório Final do Grupo e Elaboração dos Slides de Apresentação.
+*   **[Nome]:** Redação do Relatório Final do Grupo e Elaboração dos Slides de Apresentação.
 
 ### 2. Status do Cronograma (Metodologia RAD)
 *   **Fase 1 (Concluída):** Planejamento de Requisitos e Modelagem Inicial do Banco.
