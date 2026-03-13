@@ -20,7 +20,7 @@
            {% endif %}
            <p>Categoria: {{ produto.categoria.nome }}</p>
            <p>Estoque: {{ produto.estoque }}</p>
-           <a href="{% url 'detalhes-produto' produto.slug %}">Ver detalhes</a>
+           <a href="{% url 'produtos:detalhes-produto' produto.slug %}">Ver detalhes</a>
          </div>
        {% endfor %}
      {% else %}
