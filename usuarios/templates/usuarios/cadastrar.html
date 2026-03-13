@@ -1,7 +1,21 @@
-<h2>Criar Conta - Doce Universo</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Cadastrar</button>
-</form>
-<p>Já tem conta? <a href="{% url 'usuarios:login' %}">Faça login aqui</a></p>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro - Doce Universo</title>
+</head>
+<body>
+    <a href="{% url 'produtos:lista-produtos' %}">← Voltar para a vitrine</a>
+    <hr>
+
+    <h2>Criar Conta no Doce Universo</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Cadastrar e Entrar</button>
+    </form>
+
+    <p>Já possui uma conta? <a href="{% url 'usuarios:login' %}">Faça login aqui</a></p>
+</body>
+</html>

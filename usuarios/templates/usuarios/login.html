@@ -1,7 +1,21 @@
-<h2>Login</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Entrar</button>
-</form>
-<p>Não tem conta? <a href="{% url 'usuarios:cadastrar' %}">Cadastre-se aqui</a></p>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Doce Universo</title>
+</head>
+<body>
+    <a href="{% url 'produtos:lista-produtos' %}">← Voltar para a vitrine</a>
+    <hr>
+
+    <h2>Acessar Minha Conta</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Entrar</button>
+    </form>
+
+    <p>Ainda não é cliente? <a href="{% url 'usuarios:cadastrar' %}">Crie sua conta agora</a></p>
+</body>
+</html>
